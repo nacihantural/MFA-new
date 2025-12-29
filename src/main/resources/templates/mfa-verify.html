@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2. Adım Doğrulama</title>
+    <link rel="stylesheet" th:href="@{/css/mfa.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="mfa-bg-wrapper">
+    
+    <div class="circle-container">
+        <h2>2. Adım: Güvenlik Kodu</h2>
+        
+        <p class="info-text">
+            Telefonunuzdaki Authenticator uygulamasında gördüğünüz 6 haneli kodu girin.
+        </p>
+
+        <form th:action="@{/mfa-verify}" method="post">
+            
+            <div th:if="${error}" class="error">
+                <span th:text="${error}">Hatalı Kod!</span>
+            </div>
+
+            <div class="input-group">
+                <label for="code">Doğrulama Kodu:</label>
+                <input type="text" id="code" name="code" placeholder="123456" 
+                       style="text-align: center; letter-spacing: 5px; font-size: 18px;" required>
+            </div>
+
+            <button type="submit">Kodu Doğrula</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Sayfada hata mesajı içeren elementi (.error) bul
+        var errorMsg = document.querySelector('.error'); 
+        
+        // 2. Sallanacak olan ana kutuyu bul (.circle-container)
+        var container = document.querySelector('.circle-container');
+
+        // 3. Eğer hata mesajı varsa (yani kod yanlış girildiyse) efekti çalıştır
+        if (errorMsg && container) {
+            
+            // Efekt sınıfını ekle (Kızarır ve titrer)
+            container.classList.add('shake-error');
+
+            // 1 saniye sonra efekti temizle ki sürekli kırmızı kalmasın
+            setTimeout(function() {
+                container.classList.remove('shake-error');
+            }, 1000);
+        }
+    });
+</script>
+
+</body>
+</html>

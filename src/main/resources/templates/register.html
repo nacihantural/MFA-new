@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="split-container">
+    <div class="left-section-form">
+        <div class="container1">
+            <h2>Kayıt Ol</h2>
+
+            <form th:action="@{/register}" method="post">
+                <div th:if="${error}" class="error">
+                    <p th:text="${error}"></p>
+                </div>
+
+                <div class="input-group">
+                    <label for="username">Kullanıcı Adı:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Şifre:</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Şifreniz en az 8 karakter olmalı; en az bir büyük harf, bir küçük harf ve bir rakam içermelidir."
+                    >
+                </div>
+
+                <button type="submit">Kayıt Ol</button>
+            </form>
+
+            <p>Zaten hesabınız var mı? <a th:href="@{/login}">Giriş Yap</a></p>
+        </div>
+    </div>
+
+    <div class="right-section-image">
+        <div class="bg-image-register"></div>
+    </div>
+</div>
+
+</body>
+</html>

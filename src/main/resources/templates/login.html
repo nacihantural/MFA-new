@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="split-container">
+    <div class="left-section-form">
+        <div class="container1">
+            <h2>1. Adım: Giriş Yap</h2>
+
+            <form th:action="@{/login}" method="post">
+                <div th:if="${param.error}" class="error">
+                    Kullanıcı adı veya şifre hatalı.
+                </div>
+
+                <div class="input-group">
+                    <label for="username">Kullanıcı Adı:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Şifre:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit">Giriş Yap</button>
+            </form>
+
+            <p>Hesabınız yok mu? <a th:href="@{/register}">Kayıt Ol</a></p>
+        </div>
+    </div>
+
+    <div class="right-section-image">
+        <div class="bg-image"></div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MFA Kurulumu</title>
+    <link rel="stylesheet" th:href="@{/css/mfa.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="mfa-bg-wrapper">
+
+    <div class="circle-container" style="width: 550px; height: 550px;">
+        
+        <h2>MFA Kurulumu</h2>
+        
+        <p class="info-text">
+            Google Authenticator uygulamasını açın ve aşağıdaki QR kodu tarayın:
+        </p>
+
+        <div class="qr-box">
+            <img th:src="${qrCodeImage}" alt="MFA QR Kodu">
+        </div>
+
+        <div class="manual-key-area">
+            <span class="small-label">Veya anahtarı manuel girin:</span>
+            <div class="secret-key" th:text="${secretKey}">ABC123XYZ...</div>
+        </div>
+
+        <a th:href="@{/mfa-verify}" class="btn-link">Doğrulama Sayfasına Git</a>
+        
+    </div>
+
+</div>
+
+</body>
+</html>
+        
+    
