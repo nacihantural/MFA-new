@@ -12,10 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Bu filtre, belirli bir endpoint için istek hızını sınırlar.
- * OncePerRequestFilter kullanılarak her istekte sadece bir kez çalışması garanti edilir.
- */
+
 @Component
 public class RateLimitingFilter extends OncePerRequestFilter {
 
@@ -29,11 +26,7 @@ public class RateLimitingFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         String method = request.getMethod();
 
-        // Loglama: Hangi path ve method geldiğini konsoldan takip edin
-        // System.out.println("Gelen İstek: " + method + " " + path);
 
-        // mfa-verify endpoint'ine gelen POST isteklerini kontrol et
-        // endsWith yerine tam eşleşme veya contains kullanımı bazen daha güvenlidir
         if (path.contains("/mfa-verify") && "POST".equalsIgnoreCase(method)) {
             String clientIp = getClientIp(request);
 
@@ -43,11 +36,10 @@ public class RateLimitingFilter extends OncePerRequestFilter {
                 response.setStatus(429); // Too Many Requests
                 response.setContentType("text/plain; charset=UTF-8");
                 response.getWriter().write("Cok fazla deneme yaptiniz. Lutfen 1 dakika bekleyin.");
-                return; // Zincirin devam etmesini engelle, isteği burada sonlandır
+                return;
             }
         }
 
-        // Limit aşılmadıysa veya kontrol edilen path değilse devam et
         filterChain.doFilter(request, response);
     }
 
